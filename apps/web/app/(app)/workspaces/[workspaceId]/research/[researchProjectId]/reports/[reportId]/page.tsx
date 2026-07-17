@@ -75,34 +75,36 @@ const ReportDetailPage = async ({ params }: ReportDetailPageProps) => {
       initialStatus={report.status as TResearchReportStatus}
       initialThemeId={report.themeId}
       initialBlocks={initialBlocks}
-      themes={themes.map((th) => ({
+      themes={themes.map((th: { id: string; name: string; tokens: unknown; isDefault: boolean }) => ({
         id: th.id,
         name: th.name,
         tokens: th.tokens,
         isDefault: th.isDefault,
       }))}
-      analysisBlocks={analysisBlocks.map((a) => ({
+      analysisBlocks={analysisBlocks.map((a: { id: string; title: string; lastResult: unknown }) => ({
         id: a.id,
         title: a.title,
         lastResult: a.lastResult,
       }))}
-      insights={insights.map((i) => ({
+      insights={insights.map((i: { id: string; title: string; description: string | null; type: string }) => ({
         id: i.id,
         title: i.title,
         description: i.description,
         type: i.type,
       }))}
-      brandAudits={brandAudits.map((b) => ({
+      brandAudits={brandAudits.map((b: { id: string; name: string; status: string }) => ({
         id: b.id,
         name: b.name,
         status: b.status,
       }))}
-      versions={report.versions.map((v) => ({
-        id: v.id,
-        versionNumber: v.versionNumber,
-        label: v.label,
-        createdAt: v.createdAt,
-      }))}
+      versions={report.versions.map(
+        (v: { id: string; versionNumber: number; label: string | null; createdAt: Date }) => ({
+          id: v.id,
+          versionNumber: v.versionNumber,
+          label: v.label,
+          createdAt: v.createdAt,
+        })
+      )}
       canEdit={roleHasCapability(access.role, "edit_reports")}
       canApprove={roleHasCapability(access.role, "approve_reports")}
       canExport={roleHasCapability(access.role, "export")}
