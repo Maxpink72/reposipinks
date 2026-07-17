@@ -63,18 +63,9 @@ RUN pnpm install --ignore-scripts --frozen-lockfile
 # Build the database package first
 RUN pnpm build --filter=@formbricks/database
 
-# Build the project using our secret reader script
-# This mounts the secrets only during this build step without storing them in layers
-RUN --mount=type=secret,id=database_url \
-    --mount=type=secret,id=encryption_key \
-    --mount=type=secret,id=redis_url \
-    --mount=type=secret,id=hub_api_url \
-    --mount=type=secret,id=hub_api_key \
-    --mount=type=secret,id=cubejs_api_url \
-    --mount=type=secret,id=cubejs_api_secret \
-    --mount=type=secret,id=sentry_auth_token \
-    --mount=type=secret,id=posthog_key \
-    /tmp/read-secrets.sh pnpm build --filter=@formbricks/web...
+# Build the project (build-time placeholders; runtime secrets come from Railway env)
+# Avoid BuildKit secret mounts — Railway Metal builders have failed on them for this repo.
+RUN /tmp/read-secrets.sh pnpm build --filter=@formbricks/web...
 
 #
 ## step 3: setup production runner
