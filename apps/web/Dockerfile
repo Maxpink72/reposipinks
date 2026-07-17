@@ -311,11 +311,10 @@ EXPOSE 3000
 ENV HOSTNAME="0.0.0.0"
 USER nextjs
 
-# Prepare volumes for uploads and SAML connections
+# Prepare directories for uploads and SAML connections.
+# Do not declare Docker VOLUME here — Railway rejects VOLUME in Dockerfiles
+# (use Railway Volumes in the dashboard if persistence is needed).
 RUN mkdir -p /home/nextjs/apps/web/uploads/ && \
     mkdir -p /home/nextjs/apps/web/saml-connection
-
-VOLUME /home/nextjs/apps/web/uploads/
-VOLUME /home/nextjs/apps/web/saml-connection
 
 CMD ["/home/nextjs/start.sh"]
