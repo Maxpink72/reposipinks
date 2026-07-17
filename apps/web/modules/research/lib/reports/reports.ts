@@ -98,22 +98,26 @@ const assertEmbedsBelongToProject = async (
   }
 };
 
-export const listResearchReports = reactCache(async (researchProjectId: string) => {
-  validateInputs([researchProjectId, ZId]);
-  return prisma.researchReport.findMany({
-    where: { researchProjectId, archivedAt: null },
-    include: reportListInclude,
-    orderBy: { updatedAt: "desc" },
-  });
-});
+export const listResearchReports = reactCache(
+  async (researchProjectId: string): Promise<TResearchReportListItem[]> => {
+    validateInputs([researchProjectId, ZId]);
+    return prisma.researchReport.findMany({
+      where: { researchProjectId, archivedAt: null },
+      include: reportListInclude,
+      orderBy: { updatedAt: "desc" },
+    });
+  }
+);
 
-export const getResearchReport = reactCache(async (reportId: string) => {
-  validateInputs([reportId, ZId]);
-  return prisma.researchReport.findUnique({
-    where: { id: reportId },
-    include: reportDetailInclude,
-  });
-});
+export const getResearchReport = reactCache(
+  async (reportId: string): Promise<TResearchReportDetail | null> => {
+    validateInputs([reportId, ZId]);
+    return prisma.researchReport.findUnique({
+      where: { id: reportId },
+      include: reportDetailInclude,
+    });
+  }
+);
 
 export const listResearchReportThemes = reactCache(async (organizationId: string) => {
   validateInputs([organizationId, ZId]);

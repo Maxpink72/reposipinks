@@ -37,7 +37,7 @@ const ReportsPage = async ({ params }: ReportsPageProps) => {
     <ResearchReportsList
       workspaceId={workspaceId}
       researchProjectId={researchProjectId}
-      initialReports={reports}
+      initialReports={reports as Parameters<typeof ResearchReportsList>[0]["initialReports"]}
       canEdit={roleHasCapability(access.role, "edit_reports")}
     />
   );

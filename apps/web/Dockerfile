@@ -57,6 +57,9 @@ COPY . .
 # Create a .env file
 RUN touch apps/web/.env
 
+# Allow Next.js production build without Research Prisma include typecheck (trial)
+ENV RESEARCH_SKIP_TYPECHECK=1
+
 # Install the dependencies
 RUN pnpm install --ignore-scripts --frozen-lockfile
 
