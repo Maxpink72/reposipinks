@@ -57,11 +57,13 @@ const ReportDetailPage = async ({ params }: ReportDetailPageProps) => {
     listResearchBrandAudits(researchProjectId),
   ]);
 
-  const initialBlocks = report.blocks.map((b) => ({
-    id: b.id,
-    type: b.type as TResearchReportBlockType,
-    content: b.content as TResearchReportBlockContent,
-  }));
+  const initialBlocks = report.blocks.map(
+    (b: { id: string; type: string; content: unknown }) => ({
+      id: b.id,
+      type: b.type as TResearchReportBlockType,
+      content: b.content as TResearchReportBlockContent,
+    })
+  );
 
   return (
     <ResearchReportBuilder
