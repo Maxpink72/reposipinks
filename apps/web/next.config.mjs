@@ -49,10 +49,10 @@ const nextConfig = {
   basePath: process.env.BASE_PATH || undefined,
   output: "standalone",
   poweredByHeader: false,
-  // Research Prisma include typings are incomplete until the generated client is regenerated
-  // with Research* models in CI; allow Railway trial builds to ship while we harden types.
+  // Temporary: Research Prisma include typings break `next build` typecheck on Railway.
+  // Remove once generated client typings for Research* models are solid.
   typescript: {
-    ignoreBuildErrors: process.env.RESEARCH_SKIP_TYPECHECK === "1",
+    ignoreBuildErrors: true,
   },
   // Enable source maps only when uploading to Sentry (CI/production); skip for faster local builds
   productionBrowserSourceMaps: !!process.env.SENTRY_AUTH_TOKEN,

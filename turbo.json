@@ -213,6 +213,7 @@
         "NODE_ENV",
         "ASSET_PREFIX_URL",
         "BASE_PATH",
+        "RESEARCH_SKIP_TYPECHECK",
         "SENTRY_AUTH_TOKEN",
         "E2E_TESTING",
         "WEBAPP_URL",

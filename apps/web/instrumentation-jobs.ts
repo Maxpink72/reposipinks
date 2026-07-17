@@ -47,7 +47,7 @@ const responsePipelineJobHandler: NonNullable<JobHandlerOverrides[string]> = asy
 const surveySchedulingJobHandler: NonNullable<JobHandlerOverrides[string]> = async (data, context) => {
   await processSurveySchedulingJob(data as TSurveySchedulingJobData, context);
 };
-const researchExportPdfJobHandler: NonNullable<JobHandlerOverrides[string]> = async (data, context) => {
+const researchExportPdfJobHandler: NonNullable<JobHandlerOverrides[string]> = async (data, _context) => {
   const payload = data as TResearchExportPdfJobData;
   await processResearchExportPdfJob(payload.exportJobId);
 };
