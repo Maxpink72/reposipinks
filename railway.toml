@@ -1,0 +1,13 @@
+# Deploy the research fork as a Docker service on Railway.
+# Add managed Postgres + Redis in the same project, then wire env vars
+# (see docs/deploy-railway.md).
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "apps/web/Dockerfile"
+
+[deploy]
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
